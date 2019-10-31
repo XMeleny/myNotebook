@@ -78,16 +78,13 @@ public class MainActivity extends AppCompatActivity {
         recordList.clear();
 
         //select all and put them in recordList
-        Cursor cursor=db.query("NOTE",null,null,null,null,null,null);
+        Cursor cursor=db.query("NOTE",null,null,null,null,null,"id desc");
         if (cursor.moveToFirst())
         {
             do{
                 int id=cursor.getInt(cursor.getColumnIndex("id"));
                 String title=cursor.getString(cursor.getColumnIndex("title"));
                 String content=cursor.getString(cursor.getColumnIndex("content"));
-
-//                Log.d(TAG, String.valueOf(id));
-
                 Record record=new Record(id,title,content);
                 recordList.add(record);
             }while (cursor.moveToNext());
