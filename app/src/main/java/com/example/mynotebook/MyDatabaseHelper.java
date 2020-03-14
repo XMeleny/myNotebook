@@ -12,7 +12,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String TAG = "MyDatabaseHelper";
 
-    public static final String CREATE_NOTEBOOK="create table NOTE(" +
+    public static final String CREATE_NOTEBOOK = "create table NOTE(" +
             "id integer primary key autoincrement," +
             "title text," +
             "content text)";
@@ -21,18 +21,16 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     public MyDatabaseHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
-        mContext=context;
+        mContext = context;
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        try{
+        try {
             db.execSQL(CREATE_NOTEBOOK);
-            Toast.makeText(mContext,"create notebook success",Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "create notebook success", Toast.LENGTH_SHORT).show();
             Log.d(TAG, "create notebook success");
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

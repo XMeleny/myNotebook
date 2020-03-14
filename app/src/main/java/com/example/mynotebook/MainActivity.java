@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton add;
 
     private MyDatabaseHelper helper;
-    private List<Record> recordList=new ArrayList<>();
+    private List<Record> recordList = new ArrayList<>();
     private RecordAdapter adapter;
 
 
@@ -44,14 +44,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        helper=new MyDatabaseHelper(this,"notebook.db",null,1);
+        helper = new MyDatabaseHelper(this, "notebook.db", null, 1);
         helper.getWritableDatabase();
 
-        add=findViewById(R.id.add);
+        add = findViewById(R.id.add);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this,AddActivity.class);
+                Intent intent = new Intent(MainActivity.this, AddActivity.class);
                 startActivity(intent);
             }
         });
@@ -61,57 +61,53 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         init();
-        recyclerView=findViewById(R.id.recycleView);
-        layoutManager=new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+        recyclerView = findViewById(R.id.recycleView);
+        layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
-        adapter=new RecordAdapter(this,recordList);
+        adapter = new RecordAdapter(this, recordList);
         recyclerView.setAdapter(adapter);
     }
 
-    private void init()
-    {
-        SQLiteDatabase db=helper.getWritableDatabase();
+    private void init() {
+        SQLiteDatabase db = helper.getWritableDatabase();
 
-//        Log.d(TAG, "in init function");
 
         //清空list
         recordList.clear();
 
         //select all and put them in recordList
-        Cursor cursor=db.query("NOTE",null,null,null,null,null,"id desc");
-        if (cursor.moveToFirst())
-        {
-            do{
-                int id=cursor.getInt(cursor.getColumnIndex("id"));
-                String title=cursor.getString(cursor.getColumnIndex("title"));
-                String content=cursor.getString(cursor.getColumnIndex("content"));
-                Record record=new Record(id,title,content);
+        Cursor cursor = db.query("NOTE", null, null, null, null, null, "id desc");
+        if (cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(cursor.getColumnIndex("id"));
+                String title = cursor.getString(cursor.getColumnIndex("title"));
+                String content = cursor.getString(cursor.getColumnIndex("content"));
+                Record record = new Record(id, title, content);
                 recordList.add(record);
-            }while (cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
         cursor.close();
 
     }
 
     //连续返回退出
-    private long exitTime=0;
+    private long exitTime = 0;
 
     @Override
-    public boolean onKeyDown(int keyCode,KeyEvent event){
-        if(keyCode== KeyEvent.KEYCODE_BACK){
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
             exit();
             return false;
         }
-        return super.onKeyDown(keyCode,event);
+        return super.onKeyDown(keyCode, event);
     }
 
-    private void exit(){
-        if((System.currentTimeMillis()-exitTime)>2000) {
+    private void exit() {
+        if ((System.currentTimeMillis() - exitTime) > 2000) {
             Toast.makeText(getApplicationContext(),
                     "再按一次退出程序", Toast.LENGTH_SHORT).show();
             exitTime = System.currentTimeMillis();
-        }
-        else{
+        } else {
             finish();
             System.exit(0);
         }

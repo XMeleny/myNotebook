@@ -24,18 +24,18 @@ public class AddActivity extends AppCompatActivity {
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dbHelper = new MyDatabaseHelper(AddActivity.this, "notebook.db",null,1);
+                dbHelper = new MyDatabaseHelper(AddActivity.this, "notebook.db", null, 1);
                 SQLiteDatabase db = dbHelper.getWritableDatabase();
                 ContentValues values = new ContentValues();
 
-                values.put("title",((EditText)findViewById(R.id.titleEdit)).getText().toString());
-                values.put("content",((EditText)findViewById(R.id.contentEdit)).getText().toString());
+                values.put("title", ((EditText) findViewById(R.id.titleEdit)).getText().toString());
+                values.put("content", ((EditText) findViewById(R.id.contentEdit)).getText().toString());
 
-                long res = db.insert("NOTE",null, values);
-                if(res != -1) {
-                    Toast.makeText(AddActivity.this,"insert Successful",Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(AddActivity.this,"insert failed",Toast.LENGTH_SHORT).show();
+                long res = db.insert("NOTE", null, values);
+                if (res != -1) {
+                    Toast.makeText(AddActivity.this, "insert Successful", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(AddActivity.this, "insert failed", Toast.LENGTH_SHORT).show();
                 }
 
                 finish();
