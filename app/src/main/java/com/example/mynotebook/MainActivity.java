@@ -34,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        helper = new MyDatabaseHelper(this, "notebook.db", null, 1);
+        db = helper.getWritableDatabase();
+
         adapter = new RecordAdapter(this, recordList);
 
         recyclerView = findViewById(R.id.recycleView);
@@ -54,15 +57,12 @@ public class MainActivity extends AppCompatActivity {
     // TODO: 2020/7/1 recyclerView绑定数据库而非list
     // TODO: 2020/7/1 添加长按功能
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onResume() {
+        super.onResume();
         initData();
     }
 
     private void initData() {
-        helper = new MyDatabaseHelper(this, "notebook.db", null, 1);
-        db = helper.getReadableDatabase();
-
         //清空list
         recordList.clear();
 
@@ -81,6 +81,11 @@ public class MainActivity extends AppCompatActivity {
 
         adapter.setmRecordList(recordList);
         adapter.notifyDataSetChanged();
+    }
+
+    public void deleteItem(int id) {
+        db.delete("note", "id=?", new String[]{String.valueOf(id)});
+        initData();
     }
 
     //连续返回退出

@@ -1,6 +1,8 @@
 package com.example.mynotebook;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,6 +62,30 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
                 intent.putExtra("title", str_title);
                 intent.putExtra("content", str_content);
                 context.startActivity(intent);
+            }
+        });
+
+        holder.recordView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                //弹出对话框
+                new AlertDialog.Builder(parent.getContext())
+                        .setTitle("删除")
+                        .setMessage("删除后不可撤回，确定删除吗？")
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if (context instanceof MainActivity) {
+                                    int id = mRecordList.get(holder.getAdapterPosition()).getId();
+                                    ((MainActivity) context).deleteItem(id);
+                                }
+                            }
+                        })
+                        .create()
+                        .show();
+
+                // 消费该事件，避免长短同时响应
+                return true;
             }
         });
 
