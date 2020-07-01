@@ -83,14 +83,14 @@ public class RecordCursorAdapter extends RecyclerView.Adapter<RecordCursorAdapte
             @Override
             public boolean onLongClick(View v) {
                 //弹出对话框
-                new AlertDialog.Builder(parent.getContext())
+                new AlertDialog.Builder(context)
                         .setTitle("删除")
                         .setMessage("删除后不可撤回，确定删除吗？")
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 if (context instanceof MainActivity) {
-                                    if(cursor.moveToPosition(holder.getAdapterPosition())){
+                                    if (cursor.moveToPosition(holder.getAdapterPosition())) {
                                         int id = cursor.getInt(cursor.getColumnIndex("id"));
                                         ((MainActivity) context).deleteItem(id);
                                     }
@@ -110,7 +110,7 @@ public class RecordCursorAdapter extends RecyclerView.Adapter<RecordCursorAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        if(cursor.moveToPosition(position)){
+        if (cursor.moveToPosition(position)) {
             holder.recordTitle.setText(cursor.getString(cursor.getColumnIndex("title")));
             holder.recordContent.setText(cursor.getString(cursor.getColumnIndex("content")));
         }
