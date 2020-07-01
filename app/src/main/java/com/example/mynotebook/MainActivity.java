@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
     private StaggeredGridLayoutManager layoutManager;
     private ImageButton add;
 
-    private MyDatabaseHelper helper;
     private SQLiteDatabase db;
     private RecordCursorAdapter adapter;
 
@@ -30,8 +29,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        helper = new MyDatabaseHelper(this, "notebook.db", null, 1);
-        db = helper.getWritableDatabase();
+        db = NotebookDatabaseHelper.getInstance().getWritableDatabase();
 
         adapter = new RecordCursorAdapter(this, null);
         recyclerView = findViewById(R.id.recycleView);

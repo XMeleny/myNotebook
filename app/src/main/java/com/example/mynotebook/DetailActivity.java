@@ -13,13 +13,11 @@ public class DetailActivity extends AppCompatActivity {
 
     private static final String TAG = "DetailActivity";
 
-    int id;
-    EditText title;
-    EditText content;
+    private int id;
+    private EditText title;
+    private EditText content;
 
-    Intent intent;
-    MyDatabaseHelper helper;
-    SQLiteDatabase db;
+    private SQLiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,10 +27,9 @@ public class DetailActivity extends AppCompatActivity {
         title = findViewById(R.id.detail_title);
         content = findViewById(R.id.detail_content);
 
-        helper = new MyDatabaseHelper(this, "notebook.db", null, 1);
-        db = helper.getWritableDatabase();
+        db = NotebookDatabaseHelper.getInstance().getWritableDatabase();
 
-        intent = getIntent();
+        Intent intent = getIntent();
         id = Integer.parseInt(intent.getStringExtra("id"));
         title.setText(intent.getStringExtra("title"));
         content.setText(intent.getStringExtra("content"));

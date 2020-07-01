@@ -1,5 +1,7 @@
 package com.example.mynotebook;
 
+import android.widget.Toast;
+
 /**
  * @author zhuxiaomei
  * email:  zhuxiaomei.meleny@bytedance.com
@@ -30,4 +32,8 @@ public class Utils {
 //    }
 
     // TODO: 2020/7/1 log整合
+
+    public static void toast(String text) {
+        Toast.makeText(BaseApplication.context, text, Toast.LENGTH_SHORT).show();
+    }
 }

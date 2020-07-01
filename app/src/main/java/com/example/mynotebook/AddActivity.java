@@ -5,13 +5,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class AddActivity extends AppCompatActivity {
 
-    private MyDatabaseHelper dbHelper;
     private SQLiteDatabase db;
 
     private EditText etTitle;
@@ -22,8 +20,7 @@ public class AddActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
-        dbHelper = new MyDatabaseHelper(AddActivity.this, "notebook.db", null, 1);
-        db = dbHelper.getWritableDatabase();
+        db = NotebookDatabaseHelper.getInstance().getWritableDatabase();
 
         etTitle = findViewById(R.id.titleEdit);
         etContent = findViewById(R.id.contentEdit);
@@ -43,7 +40,7 @@ public class AddActivity extends AppCompatActivity {
 
             long res = db.insert("NOTE", null, values);
             if (res == -1) {
-                Toast.makeText(AddActivity.this, "insert failed", Toast.LENGTH_SHORT).show();
+                Utils.toast("插入失败");
             }
         }
     }
