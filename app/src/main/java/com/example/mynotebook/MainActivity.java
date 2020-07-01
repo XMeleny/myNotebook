@@ -1,28 +1,19 @@
 package com.example.mynotebook;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
-
-import android.Manifest;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.media.Image;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.Window;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -57,6 +48,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    // TODO: 2020/7/1 recyclerView绑定数据库而非list
+    // TODO: 2020/7/1 添加长按功能
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -70,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void init() {
         SQLiteDatabase db = helper.getWritableDatabase();
-
 
         //清空list
         recordList.clear();
@@ -87,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
             } while (cursor.moveToNext());
         }
         cursor.close();
-
     }
 
     //连续返回退出

@@ -1,7 +1,5 @@
 package com.example.mynotebook;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
@@ -13,10 +11,9 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.nio.BufferOverflowException;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -38,7 +35,6 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-
         title = findViewById(R.id.detail_title);
         content = findViewById(R.id.detail_content);
 
@@ -47,7 +43,6 @@ public class DetailActivity extends AppCompatActivity {
 
         helper = new MyDatabaseHelper(this, "notebook.db", null, 1);
         db = helper.getWritableDatabase();
-
 
         intent = getIntent();
         id = Integer.parseInt(intent.getStringExtra("id"));
@@ -63,14 +58,12 @@ public class DetailActivity extends AppCompatActivity {
                 values.put("content", content.getText().toString());
                 db.update("note", values, "id=?", new String[]{String.valueOf(id)});
                 finish();
-
             }
         });
 
         btn_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //todo:test the dialog
                 AlertDialog.Builder builder = new AlertDialog.Builder(DetailActivity.this);
                 builder.setTitle("删除");
                 builder.setMessage("删除后不可撤回，确定删除吗？");
@@ -90,14 +83,10 @@ public class DetailActivity extends AppCompatActivity {
 
                 AlertDialog dialog = builder.create();
                 dialog.show();
-//                db.delete("NOTE","id=?",new String[]{String.valueOf(id)});
-//                finish();
             }
         });
     }
 
-    //TODO: ALTER BEFORE GO BACK
-    //TODO: TEST
     //连续返回退出
     private long exitTime = 0;
 

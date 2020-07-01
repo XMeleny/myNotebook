@@ -11,7 +11,6 @@ public class Record {
         this.content = content;
     }
 
-
     public int getId() {
         return id;
     }

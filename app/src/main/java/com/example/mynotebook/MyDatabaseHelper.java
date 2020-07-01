@@ -33,12 +33,12 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //改版本号时
+        // FIXME: 2020/7/1 不去删除数据库而仅更新
         db.execSQL("drop table if exists NOTE");
         onCreate(db);
     }
