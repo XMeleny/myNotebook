@@ -95,7 +95,9 @@ public class RecordCursorAdapter extends RecyclerView.Adapter<RecordCursorAdapte
                                 if (context instanceof MainActivity) {
                                     if (cursor.moveToPosition(holder.getAdapterPosition())) {
                                         int id = cursor.getInt(cursor.getColumnIndex("id"));
-                                        ((MainActivity) context).deleteItem(id);
+                                        NotebookDatabaseHelper.getInstance().deleteById(id);
+                                        setCursor(NotebookDatabaseHelper.getInstance().getAllNote());
+                                        notifyDataSetChanged();
                                     }
                                 }
                             }

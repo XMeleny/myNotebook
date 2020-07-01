@@ -1,5 +1,6 @@
 package com.example.mynotebook;
 
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -29,9 +30,9 @@ public class NotebookDatabaseHelper extends SQLiteOpenHelper {
 
     public static final String CREATE_NOTEBOOK =
             "create table NOTE(" +
-            "id integer primary key autoincrement," +
-            "title text," +
-            "content text)";
+                    "id integer primary key autoincrement," +
+                    "title text," +
+                    "content text)";
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -49,5 +50,13 @@ public class NotebookDatabaseHelper extends SQLiteOpenHelper {
         // FIXME: 2020/7/1 不去删除数据库而仅更新
         db.execSQL("drop table if exists NOTE");
         onCreate(db);
+    }
+
+    public Cursor getAllNote() {
+        return getInstance().getReadableDatabase().query("note", null, null, null, null, null, "id desc");
+    }
+
+    public int deleteById(int id) {
+        return getInstance().getWritableDatabase().delete("note", "id=?", new String[]{String.valueOf(id)});
     }
 }

@@ -54,18 +54,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        initData();
-    }
-
-    private void initData() {
-        Cursor cursor = db.query("NOTE", null, null, null, null, null, "id desc");
-        adapter.setCursor(cursor);
-        adapter.notifyDataSetChanged();
-    }
-
-    public void deleteItem(int id) {
-        db.delete("note", "id=?", new String[]{String.valueOf(id)});
-        initData();
+        //更新页面
+        adapter.setCursor(NotebookDatabaseHelper.getInstance().getAllNote());
     }
 
     //连续返回退出
