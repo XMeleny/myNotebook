@@ -13,6 +13,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mynotebook.activity.DetailActivity;
+import com.example.mynotebook.activity.MainActivity;
+
 /**
  * @author zhuxiaomei
  * email:  zhuxiaomei.meleny@bytedance.com

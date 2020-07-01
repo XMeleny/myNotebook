@@ -1,4 +1,4 @@
-package com.example.mynotebook;
+package com.example.mynotebook.activity;
 
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
@@ -7,6 +7,10 @@ import android.text.TextUtils;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.mynotebook.NotebookDatabaseHelper;
+import com.example.mynotebook.R;
+import com.example.mynotebook.Utils;
 
 public class AddActivity extends AppCompatActivity {
 

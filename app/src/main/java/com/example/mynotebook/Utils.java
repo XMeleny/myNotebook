@@ -2,6 +2,8 @@ package com.example.mynotebook;
 
 import android.widget.Toast;
 
+import com.example.mynotebook.application.BaseApplication;
+
 /**
  * @author zhuxiaomei
  * email:  zhuxiaomei.meleny@bytedance.com

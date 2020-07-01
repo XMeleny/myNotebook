@@ -3,6 +3,8 @@ package com.example.mynotebook;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.mynotebook.application.BaseApplication;
+
 /**
  * @author zhuxiaomei
  * email:  zhuxiaomei.meleny@bytedance.com

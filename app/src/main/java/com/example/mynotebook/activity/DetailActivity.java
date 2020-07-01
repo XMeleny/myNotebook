@@ -1,4 +1,4 @@
-package com.example.mynotebook;
+package com.example.mynotebook.activity;
 
 import android.content.ContentValues;
 import android.content.Intent;
@@ -8,6 +8,9 @@ import android.text.TextUtils;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.mynotebook.NotebookDatabaseHelper;
+import com.example.mynotebook.R;
 
 public class DetailActivity extends AppCompatActivity {
 

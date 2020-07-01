@@ -1,4 +1,4 @@
-package com.example.mynotebook;
+package com.example.mynotebook.activity;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -12,6 +12,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+
+import com.example.mynotebook.NotebookDatabaseHelper;
+import com.example.mynotebook.R;
+import com.example.mynotebook.RecordCursorAdapter;
 
 public class MainActivity extends AppCompatActivity {
 

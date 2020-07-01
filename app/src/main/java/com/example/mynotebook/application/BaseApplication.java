@@ -1,4 +1,4 @@
-package com.example.mynotebook;
+package com.example.mynotebook.application;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
