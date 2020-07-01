@@ -13,9 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
@@ -26,8 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     private MyDatabaseHelper helper;
     private SQLiteDatabase db;
-    private List<Record> recordList = new ArrayList<>();
-    private RecordAdapter adapter;
+    private RecordCursorAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +33,7 @@ public class MainActivity extends AppCompatActivity {
         helper = new MyDatabaseHelper(this, "notebook.db", null, 1);
         db = helper.getWritableDatabase();
 
-        adapter = new RecordAdapter(this, recordList);
-
+        adapter = new RecordCursorAdapter(this, null);
         recyclerView = findViewById(R.id.recycleView);
         layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
@@ -54,8 +49,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // TODO: 2020/7/1 recyclerView绑定数据库而非list
-    // TODO: 2020/7/1 添加长按功能
     @Override
     protected void onResume() {
         super.onResume();
@@ -63,23 +56,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        //清空list
-        recordList.clear();
-
-        //select all and put them in recordList
         Cursor cursor = db.query("NOTE", null, null, null, null, null, "id desc");
-        if (cursor.moveToFirst()) {
-            do {
-                int id = cursor.getInt(cursor.getColumnIndex("id"));
-                String title = cursor.getString(cursor.getColumnIndex("title"));
-                String content = cursor.getString(cursor.getColumnIndex("content"));
-                Record record = new Record(id, title, content);
-                recordList.add(record);
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-
-        adapter.setmRecordList(recordList);
+        adapter.setCursor(cursor);
         adapter.notifyDataSetChanged();
     }
 

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,39 +13,50 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.List;
-
-public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder> {
-
-    private List<Record> mRecordList;
-    Context context;
+/**
+ * @author zhuxiaomei
+ * email:  zhuxiaomei.meleny@bytedance.com
+ * date:   2020/7/1
+ */
+public class RecordCursorAdapter extends RecyclerView.Adapter<RecordCursorAdapter.ViewHolder> {
 
     static class ViewHolder extends RecyclerView.ViewHolder {
+        View recordView;
 
         TextView recordTitle;
         TextView recordContent;
-        View recordView;
 
         public ViewHolder(View view) {
             super(view);
+            recordView = view;
             recordTitle = view.findViewById(R.id.record_title);
             recordContent = view.findViewById(R.id.record_content);
-            recordView = view;
         }
     }
 
-    public RecordAdapter(Context context, List<Record> recordList) {
+    private Context context;
+    private Cursor cursor;
+
+    public RecordCursorAdapter(Context context, Cursor cursor) {
         this.context = context;
-        this.mRecordList = recordList;
+        this.cursor = cursor;
     }
 
-    public void setmRecordList(List<Record> mRecordList) {
-        this.mRecordList = mRecordList;
+    public void setCursor(Cursor newCursor) {
+        if (cursor == newCursor) {
+            return;
+        }
+        if (cursor != null) {
+            cursor.close();
+        }
+        cursor = newCursor;
+        this.notifyDataSetChanged();
     }
+
 
     @NonNull
     @Override
-    public RecordAdapter.ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.record_item, parent, false);
         final ViewHolder holder = new ViewHolder(view);
 
@@ -52,16 +64,18 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
             @Override
             public void onClick(View view) {
                 int position = holder.getAdapterPosition();
-                Record record = mRecordList.get(position);
+                if (cursor.moveToPosition(position)) {
+                    Intent intent = new Intent(context, DetailActivity.class);
 
-                Intent intent = new Intent(context, DetailActivity.class);
-                String str_id = String.valueOf(record.getId());
-                String str_title = record.getTitle();
-                String str_content = record.getContent();
-                intent.putExtra("id", str_id);
-                intent.putExtra("title", str_title);
-                intent.putExtra("content", str_content);
-                context.startActivity(intent);
+                    String id = String.valueOf(cursor.getInt(cursor.getColumnIndex("id")));
+                    String title = cursor.getString(cursor.getColumnIndex("title"));
+                    String content = cursor.getString(cursor.getColumnIndex("content"));
+
+                    intent.putExtra("id", id);
+                    intent.putExtra("title", title);
+                    intent.putExtra("content", content);
+                    context.startActivity(intent);
+                }
             }
         });
 
@@ -76,8 +90,10 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 if (context instanceof MainActivity) {
-                                    int id = mRecordList.get(holder.getAdapterPosition()).getId();
-                                    ((MainActivity) context).deleteItem(id);
+                                    if(cursor.moveToPosition(holder.getAdapterPosition())){
+                                        int id = cursor.getInt(cursor.getColumnIndex("id"));
+                                        ((MainActivity) context).deleteItem(id);
+                                    }
                                 }
                             }
                         })
@@ -93,14 +109,15 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecordAdapter.ViewHolder holder, int position) {
-        Record record = mRecordList.get(position);
-        holder.recordTitle.setText(record.getTitle());
-        holder.recordContent.setText(record.getContent());
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        if(cursor.moveToPosition(position)){
+            holder.recordTitle.setText(cursor.getString(cursor.getColumnIndex("title")));
+            holder.recordContent.setText(cursor.getString(cursor.getColumnIndex("content")));
+        }
     }
 
     @Override
     public int getItemCount() {
-        return mRecordList.size();
+        return cursor.getCount();
     }
 }
