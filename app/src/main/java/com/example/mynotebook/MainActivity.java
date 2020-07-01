@@ -25,18 +25,21 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton add;
 
     private MyDatabaseHelper helper;
+    private SQLiteDatabase db;
     private List<Record> recordList = new ArrayList<>();
     private RecordAdapter adapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        adapter = new RecordAdapter(this, recordList);
 
-        helper = new MyDatabaseHelper(this, "notebook.db", null, 1);
-        helper.getWritableDatabase();
+        recyclerView = findViewById(R.id.recycleView);
+        layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
 
         add = findViewById(R.id.add);
         add.setOnClickListener(new View.OnClickListener() {
@@ -50,20 +53,15 @@ public class MainActivity extends AppCompatActivity {
 
     // TODO: 2020/7/1 recyclerView绑定数据库而非list
     // TODO: 2020/7/1 添加长按功能
-
     @Override
     protected void onStart() {
         super.onStart();
-        init();
-        recyclerView = findViewById(R.id.recycleView);
-        layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(layoutManager);
-        adapter = new RecordAdapter(this, recordList);
-        recyclerView.setAdapter(adapter);
+        initData();
     }
 
-    private void init() {
-        SQLiteDatabase db = helper.getWritableDatabase();
+    private void initData() {
+        helper = new MyDatabaseHelper(this, "notebook.db", null, 1);
+        db = helper.getReadableDatabase();
 
         //清空list
         recordList.clear();
@@ -80,6 +78,9 @@ public class MainActivity extends AppCompatActivity {
             } while (cursor.moveToNext());
         }
         cursor.close();
+
+        adapter.setmRecordList(recordList);
+        adapter.notifyDataSetChanged();
     }
 
     //连续返回退出

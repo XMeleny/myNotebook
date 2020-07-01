@@ -3,7 +3,6 @@ package com.example.mynotebook;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -28,10 +27,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         try {
             db.execSQL(CREATE_NOTEBOOK);
-            Toast.makeText(mContext, "create notebook success", Toast.LENGTH_SHORT).show();
-            Log.d(TAG, "create notebook success");
         } catch (Exception e) {
             e.printStackTrace();
+            Toast.makeText(mContext, "create notebook error!", Toast.LENGTH_SHORT).show();
         }
     }
 

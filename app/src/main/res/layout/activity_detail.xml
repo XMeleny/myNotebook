@@ -37,17 +37,6 @@
         android:gravity="bottom"
         android:orientation="vertical">
 
-
-        <Button
-            android:id="@+id/detail_update"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:background="@drawable/btn_shape"
-            android:text="修改"
-            android:textColor="#ffffff"
-            android:textSize="20dp" />
-
         <Button
             android:id="@+id/detail_delete"
             android:layout_width="match_parent"

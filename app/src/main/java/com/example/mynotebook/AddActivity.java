@@ -3,8 +3,7 @@ package com.example.mynotebook;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -13,31 +12,39 @@ import androidx.appcompat.app.AppCompatActivity;
 public class AddActivity extends AppCompatActivity {
 
     private MyDatabaseHelper dbHelper;
+    private SQLiteDatabase db;
+
+    private EditText etTitle;
+    private EditText etContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
-        Button btn_add = findViewById(R.id.insert);
-        btn_add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dbHelper = new MyDatabaseHelper(AddActivity.this, "notebook.db", null, 1);
-                SQLiteDatabase db = dbHelper.getWritableDatabase();
-                ContentValues values = new ContentValues();
+        dbHelper = new MyDatabaseHelper(AddActivity.this, "notebook.db", null, 1);
+        db = dbHelper.getWritableDatabase();
 
-                values.put("title", ((EditText) findViewById(R.id.titleEdit)).getText().toString());
-                values.put("content", ((EditText) findViewById(R.id.contentEdit)).getText().toString());
+        etTitle = findViewById(R.id.titleEdit);
+        etContent = findViewById(R.id.contentEdit);
+    }
 
-                long res = db.insert("NOTE", null, values);
-                if (res != -1) {
-                    Toast.makeText(AddActivity.this, "insert Successful", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(AddActivity.this, "insert failed", Toast.LENGTH_SHORT).show();
-                }
-                finish();
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        String title = etTitle.getText().toString();
+        String content = etContent.getText().toString();
+
+        if (!TextUtils.isEmpty(title) || !TextUtils.isEmpty(content)) {
+            ContentValues values = new ContentValues();
+
+            values.put("title", ((EditText) findViewById(R.id.titleEdit)).getText().toString());
+            values.put("content", ((EditText) findViewById(R.id.contentEdit)).getText().toString());
+
+            long res = db.insert("NOTE", null, values);
+            if (res == -1) {
+                Toast.makeText(AddActivity.this, "insert failed", Toast.LENGTH_SHORT).show();
             }
-        });
+        }
     }
 }

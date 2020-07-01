@@ -63,22 +63,5 @@
         app:layout_constraintStart_toEndOf="@+id/context"
         app:layout_constraintTop_toTopOf="@+id/context" />
 
-    <Button
-        android:id="@+id/insert"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/context"
-        android:layout_marginTop="84dp"
-        android:background="@drawable/btn_shape"
-        android:text="添加"
-        android:textColor="#ffffff"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contentEdit"
-        app:layout_constraintVertical_bias="0.961" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,8 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.KeyEvent;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,7 +22,6 @@ public class DetailActivity extends AppCompatActivity {
     EditText title;
     EditText content;
 
-    Button btn_update;
     Button btn_delete;
 
     Intent intent;
@@ -38,7 +36,6 @@ public class DetailActivity extends AppCompatActivity {
         title = findViewById(R.id.detail_title);
         content = findViewById(R.id.detail_content);
 
-        btn_update = findViewById(R.id.detail_update);
         btn_delete = findViewById(R.id.detail_delete);
 
         helper = new MyDatabaseHelper(this, "notebook.db", null, 1);
@@ -48,18 +45,6 @@ public class DetailActivity extends AppCompatActivity {
         id = Integer.parseInt(intent.getStringExtra("id"));
         title.setText(intent.getStringExtra("title"));
         content.setText(intent.getStringExtra("content"));
-
-        btn_update.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "on click update button");
-                ContentValues values = new ContentValues();
-                values.put("title", title.getText().toString());
-                values.put("content", content.getText().toString());
-                db.update("note", values, "id=?", new String[]{String.valueOf(id)});
-                finish();
-            }
-        });
 
         btn_delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,25 +72,21 @@ public class DetailActivity extends AppCompatActivity {
         });
     }
 
-    //连续返回退出
-    private long exitTime = 0;
-
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            exit();
-            return false;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
+    public void onBackPressed() {
+        super.onBackPressed();
 
-    private void exit() {
-        if ((System.currentTimeMillis() - exitTime) > 2000) {
-            Toast.makeText(getApplicationContext(),
-                    "你还没有保存修改哦！点击“修改”保存\n", Toast.LENGTH_SHORT).show();
-            exitTime = System.currentTimeMillis();
+        String strTitle = title.getText().toString().trim();
+        String strContent = content.getText().toString().trim();
+
+        // 没有内容则删除
+        if (TextUtils.isEmpty(strTitle) && TextUtils.isEmpty(strContent)) {
+            db.delete("note", "id=?", new String[]{String.valueOf(id)});
         } else {
-            finish();
+            ContentValues values = new ContentValues();
+            values.put("title", strTitle);
+            values.put("content", strContent);
+            db.update("note", values, "id=?", new String[]{String.valueOf(id)});
         }
     }
 }
