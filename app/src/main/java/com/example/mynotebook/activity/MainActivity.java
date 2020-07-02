@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +12,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.mynotebook.R;
 import com.example.mynotebook.RecordCursorAdapter;
+import com.example.mynotebook.Utils;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,26 +45,12 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    //连续返回退出
-    private long exitTime = 0;
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            exit();
+            Utils.onActivityBackPress(this);
             return false;
         }
         return super.onKeyDown(keyCode, event);
-    }
-
-    private void exit() {
-        if ((System.currentTimeMillis() - exitTime) > 2000) {
-            Toast.makeText(getApplicationContext(),
-                    "再按一次退出程序", Toast.LENGTH_SHORT).show();
-            exitTime = System.currentTimeMillis();
-        } else {
-            finish();
-            System.exit(0);
-        }
     }
 }
