@@ -7,6 +7,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.mynotebook.application.BaseApplication;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * @author zhuxiaomei
  * email:  zhuxiaomei.meleny@bytedance.com
@@ -29,27 +32,46 @@ public class NotebookDatabaseHelper extends SQLiteOpenHelper {
         return notebookDatabaseHelper;
     }
 
+    // 监听者模式
+    private static Set<NotebookAdapter> adapters = new HashSet<>();
+    public static void registerAdapter(NotebookAdapter adapter) {
+        adapters.add(adapter);
+    }
+
+    private static void notifyDataChanged() {
+        for (NotebookAdapter adapter : adapters) {
+            adapter.onChanged();
+        }
+    }
+
     //functions
     public static Cursor getAllNote() {
-        return getInstance().getReadableDatabase().query("note", null, null, null, null, null, "id desc");
-    }
-
-    public static int deleteById(int id) {
-        return getInstance().getWritableDatabase().delete("note", "id=?", new String[]{String.valueOf(id)});
-    }
-
-    public static int update(int id, String title, String content) {
-        ContentValues values = new ContentValues();
-        values.put("title", title);
-        values.put("content", content);
-        return getInstance().getWritableDatabase().update("note", values, "id=?", new String[]{String.valueOf(id)});
+        Cursor res = getInstance().getReadableDatabase().query("note", null, null, null, null, null, "id desc");
+        return res;
     }
 
     public static long insert(String title, String content) {
         ContentValues values = new ContentValues();
         values.put("title", title);
         values.put("content", content);
-        return getInstance().getWritableDatabase().insert("note", null, values);
+        long res = getInstance().getWritableDatabase().insert("note", null, values);
+        notifyDataChanged();
+        return res;
+    }
+
+    public static int deleteById(int id) {
+        int res = getInstance().getWritableDatabase().delete("note", "id=?", new String[]{String.valueOf(id)});
+        notifyDataChanged();
+        return res;
+    }
+
+    public static int update(int id, String title, String content) {
+        ContentValues values = new ContentValues();
+        values.put("title", title);
+        values.put("content", content);
+        int res = getInstance().getWritableDatabase().update("note", values, "id=?", new String[]{String.valueOf(id)});
+        notifyDataChanged();
+        return res;
     }
 
     //database structure

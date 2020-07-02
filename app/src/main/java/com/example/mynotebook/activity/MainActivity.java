@@ -1,8 +1,6 @@
 package com.example.mynotebook.activity;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -13,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import com.example.mynotebook.NotebookDatabaseHelper;
 import com.example.mynotebook.R;
 import com.example.mynotebook.RecordCursorAdapter;
 
@@ -32,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        adapter = new RecordCursorAdapter(this, null);
+        adapter = new RecordCursorAdapter(this);
         recyclerView = findViewById(R.id.recycleView);
         layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
@@ -46,13 +43,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        //更新页面
-        adapter.setCursor(NotebookDatabaseHelper.getAllNote());
     }
 
     //连续返回退出

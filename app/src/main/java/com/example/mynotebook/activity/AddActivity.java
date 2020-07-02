@@ -1,7 +1,5 @@
 package com.example.mynotebook.activity;
 
-import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.EditText;

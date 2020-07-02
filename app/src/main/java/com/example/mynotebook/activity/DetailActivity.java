@@ -1,8 +1,6 @@
 package com.example.mynotebook.activity;
 
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.EditText;
@@ -44,13 +42,8 @@ public class DetailActivity extends AppCompatActivity {
 
         // 没有内容则删除
         if (TextUtils.isEmpty(strTitle) && TextUtils.isEmpty(strContent)) {
-//            db.delete("note", "id=?", new String[]{String.valueOf(id)});
             NotebookDatabaseHelper.deleteById(id);
         } else {
-//            ContentValues values = new ContentValues();
-//            values.put("title", strTitle);
-//            values.put("content", strContent);
-//            db.update("note", values, "id=?", new String[]{String.valueOf(id)});
             NotebookDatabaseHelper.update(id, strTitle, strContent);
         }
     }

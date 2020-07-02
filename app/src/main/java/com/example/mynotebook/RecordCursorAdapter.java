@@ -21,7 +21,13 @@ import com.example.mynotebook.activity.MainActivity;
  * email:  zhuxiaomei.meleny@bytedance.com
  * date:   2020/7/1
  */
-public class RecordCursorAdapter extends RecyclerView.Adapter<RecordCursorAdapter.ViewHolder> {
+public class RecordCursorAdapter extends RecyclerView.Adapter<RecordCursorAdapter.ViewHolder> implements NotebookAdapter {
+
+    @Override
+    public void onChanged() {
+        setCursor(NotebookDatabaseHelper.getAllNote());
+        notifyDataSetChanged();
+    }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         View recordView;
@@ -40,9 +46,10 @@ public class RecordCursorAdapter extends RecyclerView.Adapter<RecordCursorAdapte
     private Context context;
     private Cursor cursor;
 
-    public RecordCursorAdapter(Context context, Cursor cursor) {
+    public RecordCursorAdapter(Context context) {
         this.context = context;
-        this.cursor = cursor;
+        this.cursor = NotebookDatabaseHelper.getAllNote();
+        NotebookDatabaseHelper.registerAdapter(this);
     }
 
     public void setCursor(Cursor newCursor) {
@@ -96,8 +103,6 @@ public class RecordCursorAdapter extends RecyclerView.Adapter<RecordCursorAdapte
                                     if (cursor.moveToPosition(holder.getAdapterPosition())) {
                                         int id = cursor.getInt(cursor.getColumnIndex("id"));
                                         NotebookDatabaseHelper.deleteById(id);
-                                        setCursor(NotebookDatabaseHelper.getAllNote());
-                                        notifyDataSetChanged();
                                     }
                                 }
                             }
