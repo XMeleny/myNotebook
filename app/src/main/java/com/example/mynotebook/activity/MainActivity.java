@@ -25,15 +25,12 @@ public class MainActivity extends AppCompatActivity {
     private StaggeredGridLayoutManager layoutManager;
     private ImageButton add;
 
-    private SQLiteDatabase db;
     private RecordCursorAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        db = NotebookDatabaseHelper.getInstance().getWritableDatabase();
 
         adapter = new RecordCursorAdapter(this, null);
         recyclerView = findViewById(R.id.recycleView);
@@ -55,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         //更新页面
-        adapter.setCursor(NotebookDatabaseHelper.getInstance().getAllNote());
+        adapter.setCursor(NotebookDatabaseHelper.getAllNote());
     }
 
     //连续返回退出

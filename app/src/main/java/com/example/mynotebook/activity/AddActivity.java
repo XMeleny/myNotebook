@@ -14,8 +14,6 @@ import com.example.mynotebook.Utils;
 
 public class AddActivity extends AppCompatActivity {
 
-    private SQLiteDatabase db;
-
     private EditText etTitle;
     private EditText etContent;
 
@@ -23,8 +21,6 @@ public class AddActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
-
-        db = NotebookDatabaseHelper.getInstance().getWritableDatabase();
 
         etTitle = findViewById(R.id.titleEdit);
         etContent = findViewById(R.id.contentEdit);
@@ -37,12 +33,7 @@ public class AddActivity extends AppCompatActivity {
         String content = etContent.getText().toString();
 
         if (!TextUtils.isEmpty(title) || !TextUtils.isEmpty(content)) {
-            ContentValues values = new ContentValues();
-
-            values.put("title", ((EditText) findViewById(R.id.titleEdit)).getText().toString());
-            values.put("content", ((EditText) findViewById(R.id.contentEdit)).getText().toString());
-
-            long res = db.insert("NOTE", null, values);
+            long res = NotebookDatabaseHelper.insert(title, content);
             if (res == -1) {
                 Utils.toast("插入失败");
             }

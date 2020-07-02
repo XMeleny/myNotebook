@@ -1,5 +1,6 @@
 package com.example.mynotebook;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -19,7 +20,7 @@ public class NotebookDatabaseHelper extends SQLiteOpenHelper {
         super(BaseApplication.context, "notebook.db", null, 1);
     }
 
-    public static synchronized NotebookDatabaseHelper getInstance() {
+    private static synchronized NotebookDatabaseHelper getInstance() {
         if (notebookDatabaseHelper == null) {
             synchronized (NotebookDatabaseHelper.class) {
                 notebookDatabaseHelper = new NotebookDatabaseHelper();
@@ -28,6 +29,30 @@ public class NotebookDatabaseHelper extends SQLiteOpenHelper {
         return notebookDatabaseHelper;
     }
 
+    //functions
+    public static Cursor getAllNote() {
+        return getInstance().getReadableDatabase().query("note", null, null, null, null, null, "id desc");
+    }
+
+    public static int deleteById(int id) {
+        return getInstance().getWritableDatabase().delete("note", "id=?", new String[]{String.valueOf(id)});
+    }
+
+    public static int update(int id, String title, String content) {
+        ContentValues values = new ContentValues();
+        values.put("title", title);
+        values.put("content", content);
+        return getInstance().getWritableDatabase().update("note", values, "id=?", new String[]{String.valueOf(id)});
+    }
+
+    public static long insert(String title, String content) {
+        ContentValues values = new ContentValues();
+        values.put("title", title);
+        values.put("content", content);
+        return getInstance().getWritableDatabase().insert("note", null, values);
+    }
+
+    //database structure
     public static final String CREATE_NOTEBOOK =
             "create table NOTE(" +
                     "id integer primary key autoincrement," +
@@ -50,13 +75,5 @@ public class NotebookDatabaseHelper extends SQLiteOpenHelper {
         // FIXME: 2020/7/1 不去删除数据库而仅更新
         db.execSQL("drop table if exists NOTE");
         onCreate(db);
-    }
-
-    public Cursor getAllNote() {
-        return getInstance().getReadableDatabase().query("note", null, null, null, null, null, "id desc");
-    }
-
-    public int deleteById(int id) {
-        return getInstance().getWritableDatabase().delete("note", "id=?", new String[]{String.valueOf(id)});
     }
 }

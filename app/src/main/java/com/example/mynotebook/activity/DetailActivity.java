@@ -20,8 +20,6 @@ public class DetailActivity extends AppCompatActivity {
     private EditText title;
     private EditText content;
 
-    private SQLiteDatabase db;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +28,6 @@ public class DetailActivity extends AppCompatActivity {
         title = findViewById(R.id.detail_title);
         content = findViewById(R.id.detail_content);
 
-        db = NotebookDatabaseHelper.getInstance().getWritableDatabase();
 
         Intent intent = getIntent();
         id = Integer.parseInt(intent.getStringExtra("id"));
@@ -47,12 +44,14 @@ public class DetailActivity extends AppCompatActivity {
 
         // 没有内容则删除
         if (TextUtils.isEmpty(strTitle) && TextUtils.isEmpty(strContent)) {
-            db.delete("note", "id=?", new String[]{String.valueOf(id)});
+//            db.delete("note", "id=?", new String[]{String.valueOf(id)});
+            NotebookDatabaseHelper.deleteById(id);
         } else {
-            ContentValues values = new ContentValues();
-            values.put("title", strTitle);
-            values.put("content", strContent);
-            db.update("note", values, "id=?", new String[]{String.valueOf(id)});
+//            ContentValues values = new ContentValues();
+//            values.put("title", strTitle);
+//            values.put("content", strContent);
+//            db.update("note", values, "id=?", new String[]{String.valueOf(id)});
+            NotebookDatabaseHelper.update(id, strTitle, strContent);
         }
     }
 }
