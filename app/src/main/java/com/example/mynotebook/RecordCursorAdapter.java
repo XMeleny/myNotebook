@@ -35,6 +35,12 @@ public class RecordCursorAdapter extends RecyclerView.Adapter<RecordCursorAdapte
         notifyItemInserted(pos);
     }
 
+    @Override
+    public void onDeleted(int pos) {
+        setCursor(NotebookDatabaseHelper.getAllNote());
+        notifyItemRemoved(pos);
+    }
+
     static class ViewHolder extends RecyclerView.ViewHolder {
         View recordView;
 

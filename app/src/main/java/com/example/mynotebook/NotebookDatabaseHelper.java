@@ -34,19 +34,27 @@ public class NotebookDatabaseHelper extends SQLiteOpenHelper {
 
     // 监听者模式
     private static Set<NotebookAdapter> adapters = new HashSet<>();
+
     public static void registerAdapter(NotebookAdapter adapter) {
         adapters.add(adapter);
     }
 
+    // 监听者模式notify
     private static void notifyDataChanged() {
         for (NotebookAdapter adapter : adapters) {
             adapter.onChanged();
         }
     }
 
-    private static void notifyItemInserted(int pos){
-        for(NotebookAdapter adapter: adapters){
+    private static void notifyItemInserted(int pos) {
+        for (NotebookAdapter adapter : adapters) {
             adapter.onInserted(pos);
+        }
+    }
+
+    private static void notifyItemDeleted(int pos) {
+        for (NotebookAdapter adapter : adapters) {
+            adapter.onDeleted(pos);
         }
     }
 
@@ -62,13 +70,31 @@ public class NotebookDatabaseHelper extends SQLiteOpenHelper {
         values.put("title", title);
         values.put("content", content);
         long res = getInstance().getWritableDatabase().insert("note", null, values);
-        notifyItemInserted(0);
+
+        // 插入成功
+        if (res != -1) {
+            notifyItemInserted(0);
+        }
         return res;
     }
 
     public static int deleteById(int id) {
+        // 找到删除前的位置
+        Cursor oldCursor = getAllNote();
+        int pos = -1;
+        while (oldCursor.moveToNext()) {
+            pos++;
+            if (id == oldCursor.getInt(oldCursor.getColumnIndex("id"))) {
+                break;
+            }
+        }
+
+        // 从数据库中删除
         int res = getInstance().getWritableDatabase().delete("note", "id=?", new String[]{String.valueOf(id)});
-        notifyDataChanged();
+        if (res != 0) {
+            // 假如删除成功，notify
+            notifyItemDeleted(pos);
+        }
         return res;
     }
 
