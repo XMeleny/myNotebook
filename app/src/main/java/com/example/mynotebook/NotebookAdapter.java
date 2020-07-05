@@ -7,4 +7,6 @@ package com.example.mynotebook;
  */
 public interface NotebookAdapter {
     void onChanged();
+
+    void onInserted(int pos);
 }

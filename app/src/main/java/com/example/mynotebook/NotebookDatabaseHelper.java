@@ -44,6 +44,13 @@ public class NotebookDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    private static void notifyItemInserted(int pos){
+        for(NotebookAdapter adapter: adapters){
+            adapter.onInserted(pos);
+        }
+    }
+
+
     //functions
     public static Cursor getAllNote() {
         Cursor res = getInstance().getReadableDatabase().query("note", null, null, null, null, null, "id desc");
@@ -55,7 +62,7 @@ public class NotebookDatabaseHelper extends SQLiteOpenHelper {
         values.put("title", title);
         values.put("content", content);
         long res = getInstance().getWritableDatabase().insert("note", null, values);
-        notifyDataChanged();
+        notifyItemInserted(0);
         return res;
     }
 

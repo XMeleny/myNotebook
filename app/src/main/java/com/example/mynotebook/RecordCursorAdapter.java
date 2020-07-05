@@ -29,6 +29,12 @@ public class RecordCursorAdapter extends RecyclerView.Adapter<RecordCursorAdapte
         notifyDataSetChanged();
     }
 
+    @Override
+    public void onInserted(int pos) {
+        setCursor(NotebookDatabaseHelper.getAllNote());
+        notifyItemInserted(pos);
+    }
+
     static class ViewHolder extends RecyclerView.ViewHolder {
         View recordView;
 
@@ -60,7 +66,6 @@ public class RecordCursorAdapter extends RecyclerView.Adapter<RecordCursorAdapte
             cursor.close();
         }
         cursor = newCursor;
-        this.notifyDataSetChanged();
     }
 
 

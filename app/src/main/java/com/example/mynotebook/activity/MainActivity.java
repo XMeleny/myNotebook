@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -19,10 +20,9 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
 
     private RecyclerView recyclerView;
-    private StaggeredGridLayoutManager layoutManager;
-    private ImageButton add;
-
     private RecordCursorAdapter adapter;
+
+    private ImageButton add;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +31,14 @@ public class MainActivity extends AppCompatActivity {
 
         adapter = new RecordCursorAdapter(this);
         recyclerView = findViewById(R.id.recycleView);
-        layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         recyclerView.setAdapter(adapter);
+
+        // 动画
+        DefaultItemAnimator defaultItemAnimator = new DefaultItemAnimator();
+        defaultItemAnimator.setAddDuration(300);
+        defaultItemAnimator.setRemoveDuration(300);
+        recyclerView.setItemAnimator(defaultItemAnimator);
 
         add = findViewById(R.id.add);
         add.setOnClickListener(new View.OnClickListener() {
