@@ -1,6 +1,13 @@
 package com.example.mynotebook;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.mynotebook.application.BaseApplication;
@@ -38,5 +45,25 @@ public class Utils {
 
     public static void toast(String text) {
         Toast.makeText(BaseApplication.context, text, Toast.LENGTH_SHORT).show();
+    }
+
+    public static void showBottomDialog(Context context) {
+        Dialog dialog = new Dialog(context, R.style.BottomDialog);
+
+        LinearLayout root = (LinearLayout) LayoutInflater.from(context).inflate(R.layout.bottom_dialog, null);
+        dialog.setContentView(root);
+
+        Window dialogWindow = dialog.getWindow();
+        dialogWindow.setGravity(Gravity.BOTTOM);
+
+        WindowManager.LayoutParams lp = dialogWindow.getAttributes();
+        lp.x = 0;
+        lp.y = 0;
+        root.measure(0, 0);//0 unspecified
+        lp.width = context.getResources().getDisplayMetrics().widthPixels;
+        lp.height = root.getMeasuredHeight();
+
+        dialogWindow.setAttributes(lp);
+        dialog.show();
     }
 }
