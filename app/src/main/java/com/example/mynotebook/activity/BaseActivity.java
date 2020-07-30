@@ -9,8 +9,11 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 
+import com.example.mynotebook.BottomNavigateItem;
 import com.example.mynotebook.R;
+import com.example.mynotebook.Utils;
 import com.example.mynotebook.fragment.AlarmFragment;
 import com.example.mynotebook.fragment.AllMemoFragment;
 
@@ -34,9 +37,28 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
 
         vpFragmentContainer.setAdapter(new FragmentAdapter(getSupportFragmentManager()));
         vpFragmentContainer.addOnPageChangeListener(this);
+        LinearLayout bottom = findViewById(R.id.bottom);
 
-        findViewById(R.id.navigate_to_list).setOnClickListener(this);
-        findViewById(R.id.navigate_to_alarm).setOnClickListener(this);
+        BottomNavigateItem item1 = new BottomNavigateItem(this);
+        item1.setDescription("test1");
+        bottom.addView(item1, new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
+
+        item1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utils.toast("test1 clicked");
+            }
+        });
+
+        BottomNavigateItem item2 = new BottomNavigateItem(this);
+        item2.setDescription("test2");
+        item2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utils.toast("test2 clicked");
+            }
+        });
+        bottom.addView(item2, new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
     }
 
     @Override

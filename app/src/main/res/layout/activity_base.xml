@@ -15,8 +15,12 @@
         android:layout_weight="1" />
 
     <!--底部导航栏-->
-    <include
-        android:id="@+id/bottom_navigate_layout"
-        layout="@layout/bottom_navigate" />
+    <LinearLayout
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+    </LinearLayout>
 
 </LinearLayout>
