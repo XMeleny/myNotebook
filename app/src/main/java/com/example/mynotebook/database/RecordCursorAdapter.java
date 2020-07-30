@@ -1,4 +1,4 @@
-package com.example.mynotebook;
+package com.example.mynotebook.database;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -18,6 +18,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mynotebook.R;
 import com.example.mynotebook.activity.DetailActivity;
 import com.example.mynotebook.activity.MainActivity;
 

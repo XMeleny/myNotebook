@@ -11,9 +11,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.example.mynotebook.BottomNavigateItem;
+import com.example.mynotebook.widget.BottomNavigateItem;
 import com.example.mynotebook.R;
-import com.example.mynotebook.Utils;
+import com.example.mynotebook.utility.Utils;
 import com.example.mynotebook.fragment.AlarmFragment;
 import com.example.mynotebook.fragment.AllMemoFragment;
 

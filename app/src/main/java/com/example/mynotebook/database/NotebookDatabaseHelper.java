@@ -1,10 +1,11 @@
-package com.example.mynotebook;
+package com.example.mynotebook.database;
 
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.mynotebook.utility.Utils;
 import com.example.mynotebook.application.BaseApplication;
 
 import java.util.HashSet;

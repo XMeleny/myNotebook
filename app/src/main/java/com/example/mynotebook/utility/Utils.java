@@ -1,4 +1,4 @@
-package com.example.mynotebook;
+package com.example.mynotebook.utility;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -10,6 +10,7 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.mynotebook.R;
 import com.example.mynotebook.application.BaseApplication;
 
 import java.util.HashMap;

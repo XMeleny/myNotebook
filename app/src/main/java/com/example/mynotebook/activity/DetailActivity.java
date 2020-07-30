@@ -7,7 +7,7 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.mynotebook.NotebookDatabaseHelper;
+import com.example.mynotebook.database.NotebookDatabaseHelper;
 import com.example.mynotebook.R;
 
 public class DetailActivity extends AppCompatActivity {

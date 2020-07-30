@@ -6,9 +6,9 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.mynotebook.NotebookDatabaseHelper;
+import com.example.mynotebook.database.NotebookDatabaseHelper;
 import com.example.mynotebook.R;
-import com.example.mynotebook.Utils;
+import com.example.mynotebook.utility.Utils;
 
 public class AddActivity extends AppCompatActivity {
 

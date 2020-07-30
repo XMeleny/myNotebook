@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.mynotebook.R;
-import com.example.mynotebook.RecordCursorAdapter;
-import com.example.mynotebook.Utils;
+import com.example.mynotebook.database.RecordCursorAdapter;
+import com.example.mynotebook.utility.Utils;
 
 public class MainActivity extends AppCompatActivity {
 

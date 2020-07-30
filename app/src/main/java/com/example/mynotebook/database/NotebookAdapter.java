@@ -1,4 +1,4 @@
-package com.example.mynotebook;
+package com.example.mynotebook.database;
 
 /**
  * @author zhuxiaomei
