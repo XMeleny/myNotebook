@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/alarm" />
+        android:src="@drawable/ic_alarm" />
 
     <TextView
         android:id="@+id/tv_description"
