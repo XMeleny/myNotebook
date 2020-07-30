@@ -14,6 +14,7 @@ import com.example.mynotebook.R;
  * email:  zhuxiaomei.meleny@bytedance.com
  * date:   2020/7/30
  */
+// TODO: 2020/7/30 建造者模式
 public class BottomNavigateItem extends RelativeLayout {
 
     ImageView ivIcon;

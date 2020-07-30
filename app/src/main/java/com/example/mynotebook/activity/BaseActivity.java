@@ -19,12 +19,12 @@ import com.example.mynotebook.fragment.AllMemoFragment;
 
 import java.util.ArrayList;
 
-public class BaseActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
+public class BaseActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
 
     private ViewPager vpFragmentContainer;
 
     private ArrayList<Fragment> fragments = new ArrayList<Fragment>() {{
-        add(AllMemoFragment.getInstance());
+        add(new AllMemoFragment());
         add(AlarmFragment.getInstance());
     }};
 
@@ -41,17 +41,18 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
 
         BottomNavigateItem item1 = new BottomNavigateItem(this);
         item1.setDescription("test1");
-        bottom.addView(item1, new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
-
+        item1.setIcon(R.drawable.ic_list);
         item1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Utils.toast("test1 clicked");
             }
         });
+        bottom.addView(item1, new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
 
         BottomNavigateItem item2 = new BottomNavigateItem(this);
         item2.setDescription("test2");
+        item2.setIcon(R.drawable.ic_alarm);
         item2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,23 +62,10 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         bottom.addView(item2, new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.navigate_to_list:
-                vpFragmentContainer.setCurrentItem(0);
-                break;
-            case R.id.navigate_to_alarm:
-                vpFragmentContainer.setCurrentItem(1);
-                break;
-            default:
-                break;
-        }
-    }
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        //do nothing
+
     }
 
     @Override

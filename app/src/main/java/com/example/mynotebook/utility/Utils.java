@@ -3,6 +3,7 @@ package com.example.mynotebook.utility;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Window;

@@ -116,11 +116,9 @@ public class RecordCursorAdapter extends RecyclerView.Adapter<RecordCursorAdapte
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                if (context instanceof MainActivity) {
-                                    if (cursor.moveToPosition(holder.getAdapterPosition())) {
-                                        int id = cursor.getInt(cursor.getColumnIndex("id"));
-                                        NotebookDatabaseHelper.deleteById(id);
-                                    }
+                                if (cursor.moveToPosition(holder.getAdapterPosition())) {
+                                    int id = cursor.getInt(cursor.getColumnIndex("id"));
+                                    NotebookDatabaseHelper.deleteById(id);
                                 }
                             }
                         })
