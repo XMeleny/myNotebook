@@ -15,7 +15,6 @@ import android.widget.ImageButton;
 
 import com.example.mynotebook.R;
 import com.example.mynotebook.activity.AddActivity;
-import com.example.mynotebook.activity.MainActivity;
 import com.example.mynotebook.application.BaseApplication;
 import com.example.mynotebook.database.RecordCursorAdapter;
 

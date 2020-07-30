@@ -1,7 +1,6 @@
 package com.example.mynotebook.widget;
 
 import android.content.Context;
-import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -17,31 +16,32 @@ import com.example.mynotebook.R;
 // TODO: 2020/7/30 建造者模式
 public class BottomNavigateItem extends RelativeLayout {
 
+    // children widget
     ImageView ivIcon;
     TextView tvDescription;
 
-    public BottomNavigateItem(Context context) {
+    // children attr
+    int icon;
+    String description;
+
+    public BottomNavigateItem(Context context, int icon, String description) {
         super(context);
+        this.icon = icon;
+        this.description = description;
         init();
     }
 
-    public BottomNavigateItem(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init();
-    }
-
-    public void init() {
+    private void init() {
         LayoutInflater.from(getContext()).inflate(R.layout.bottom_navigate_item, this, true);
 
         ivIcon = findViewById(R.id.iv_icon);
+        ivIcon.setBackgroundResource(icon);
+        
         tvDescription = findViewById(R.id.tv_description);
-    }
-
-    public void setIcon(int drawableId) {
-        ivIcon.setBackgroundResource(drawableId);
-    }
-
-    public void setDescription(String description) {
         tvDescription.setText(description);
+    }
+
+    public void setColor(int color) {
+        // TODO: 2020/7/30
     }
 }

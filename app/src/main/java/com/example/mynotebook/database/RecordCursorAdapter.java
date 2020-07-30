@@ -20,7 +20,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mynotebook.R;
 import com.example.mynotebook.activity.DetailActivity;
-import com.example.mynotebook.activity.MainActivity;
 
 /**
  * @author zhuxiaomei
