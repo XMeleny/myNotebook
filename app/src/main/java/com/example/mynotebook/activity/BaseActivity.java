@@ -45,7 +45,7 @@ public class BaseActivity extends AppCompatActivity implements ViewPager.OnPageC
                 vpFragmentContainer.setCurrentItem(0);
             }
         });
-        bottom.addView(item1, new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
+        item1.addToLinearLayout(bottom);
 
         BottomNavigateItem item2 = new BottomNavigateItem(this,R.drawable.ic_alarm,"alarm");
         item2.setOnClickListener(new View.OnClickListener() {
@@ -54,7 +54,7 @@ public class BaseActivity extends AppCompatActivity implements ViewPager.OnPageC
                 vpFragmentContainer.setCurrentItem(1);
             }
         });
-        bottom.addView(item2, new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
+        item2.addToLinearLayout(bottom);
     }
 
 

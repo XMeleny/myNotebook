@@ -3,6 +3,7 @@ package com.example.mynotebook.widget;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -36,12 +37,19 @@ public class BottomNavigateItem extends RelativeLayout {
 
         ivIcon = findViewById(R.id.iv_icon);
         ivIcon.setBackgroundResource(icon);
-        
+
         tvDescription = findViewById(R.id.tv_description);
         tvDescription.setText(description);
     }
 
     public void setColor(int color) {
         // TODO: 2020/7/30
+    }
+
+    public void addToLinearLayout(LinearLayout layout) {
+        if (layout.getOrientation() != LinearLayout.HORIZONTAL) {
+            return;
+        }
+        layout.addView(this, new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
     }
 }
