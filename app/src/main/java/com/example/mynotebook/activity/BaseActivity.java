@@ -1,5 +1,9 @@
 package com.example.mynotebook.activity;
 
+import android.os.Bundle;
+import android.view.View;
+import android.widget.LinearLayout;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -7,14 +11,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import android.os.Bundle;
-import android.view.View;
-import android.widget.LinearLayout;
-
-import com.example.mynotebook.widget.BottomNavigateItem;
 import com.example.mynotebook.R;
-import com.example.mynotebook.fragment.AlarmFragment;
 import com.example.mynotebook.fragment.AllMemoFragment;
+import com.example.mynotebook.fragment.AllReminderFragment;
+import com.example.mynotebook.widget.BottomNavigateItem;
 
 import java.util.ArrayList;
 
@@ -24,7 +24,7 @@ public class BaseActivity extends AppCompatActivity implements ViewPager.OnPageC
 
     private ArrayList<Fragment> fragments = new ArrayList<Fragment>() {{
         add(new AllMemoFragment());
-        add(AlarmFragment.getInstance());
+        add(new AllReminderFragment());
     }};
 
     @Override
@@ -38,7 +38,7 @@ public class BaseActivity extends AppCompatActivity implements ViewPager.OnPageC
         vpFragmentContainer.addOnPageChangeListener(this);
         LinearLayout bottom = findViewById(R.id.bottom);
 
-        BottomNavigateItem item1 = new BottomNavigateItem(this,R.drawable.ic_list,"list");
+        BottomNavigateItem item1 = new BottomNavigateItem(this, R.drawable.ic_list, "list");
         item1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,7 +47,7 @@ public class BaseActivity extends AppCompatActivity implements ViewPager.OnPageC
         });
         item1.addToLinearLayout(bottom);
 
-        BottomNavigateItem item2 = new BottomNavigateItem(this,R.drawable.ic_alarm,"alarm");
+        BottomNavigateItem item2 = new BottomNavigateItem(this, R.drawable.ic_alarm, "alarm");
         item2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
