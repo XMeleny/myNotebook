@@ -1,9 +1,9 @@
 package com.example.mynotebook.utility;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Window;
@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.mynotebook.R;
 import com.example.mynotebook.application.BaseApplication;
 
+import java.util.Calendar;
 import java.util.HashMap;
 
 /**
@@ -67,5 +68,30 @@ public class Utils {
 
         dialogWindow.setAttributes(lp);
         dialog.show();
+    }
+
+    public static int YEAR = 1;
+    public static int MONTH = 2;
+    public static int DAY = 3;
+    public static int HOUR = 4;
+    public static int MINUTE = 5;
+//    public static int SECOND = 6;
+
+    public static HashMap<Integer, Integer> getCurrentTimeMap() {
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        Calendar calendar = Calendar.getInstance();
+        map.put(YEAR, calendar.get(Calendar.YEAR));
+        map.put(MONTH, calendar.get(Calendar.MONTH) + 1);
+        map.put(DAY, calendar.get(Calendar.DAY_OF_MONTH));
+
+        map.put(HOUR, calendar.get(Calendar.HOUR_OF_DAY));
+        map.put(MINUTE, calendar.get(Calendar.MINUTE));
+
+        AlarmManager alarmManager = (AlarmManager) BaseApplication.context.getSystemService(Context.ALARM_SERVICE);
+        if (alarmManager != null) {
+            alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), null);
+        }
+        return map;
     }
 }
