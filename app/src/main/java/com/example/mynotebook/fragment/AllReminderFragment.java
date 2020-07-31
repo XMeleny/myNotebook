@@ -26,10 +26,11 @@ import com.example.mynotebook.application.BaseApplication;
 import java.util.Calendar;
 
 public class AllReminderFragment extends Fragment {
+    private static final String TAG = "AlarmFragment";
 
     private Button btnOpenDatePick;
-    private static final String TAG = "AlarmFragment";
-    Calendar calendar = Calendar.getInstance();
+
+    private Calendar calendar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,6 @@ public class AllReminderFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_alarm, container, false);
         btnOpenDatePick = view.findViewById(R.id.btn_open_date_pick_dialog);
         btnOpenDatePick.setOnClickListener(new View.OnClickListener() {
@@ -54,6 +54,7 @@ public class AllReminderFragment extends Fragment {
 
     private void getDatePickerDialog() {
         if (getActivity() == null) return;
+        calendar = Calendar.getInstance();
         DatePickerDialog dialog = new DatePickerDialog(getActivity(),
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
@@ -83,11 +84,6 @@ public class AllReminderFragment extends Fragment {
                         calendar.set(Calendar.MINUTE, minute);
 
                         AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
-//                        if (alarmManager != null) {
-//                            alarmManager.set(AlarmManager.RTC_WAKEUP,
-//                                    calendar.getTimeInMillis(),
-//                                    PendingIntent.getActivity(BaseApplication.context, 0, new Intent(BaseApplication.context, AddActivity.class), PendingIntent.FLAG_UPDATE_CURRENT));
-//                        }
                         setAlarmEvent(alarmManager, calendar);
                     }
                 },
