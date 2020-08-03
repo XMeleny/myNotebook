@@ -47,7 +47,7 @@ public class BaseActivity extends AppCompatActivity implements ViewPager.OnPageC
         });
         item1.addToLinearLayout(bottom);
 
-        BottomNavigateItem item2 = new BottomNavigateItem(this, R.drawable.ic_alarm, "alarm");
+        BottomNavigateItem item2 = new BottomNavigateItem(this, R.drawable.ic_heart, "maybe future");
         item2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
