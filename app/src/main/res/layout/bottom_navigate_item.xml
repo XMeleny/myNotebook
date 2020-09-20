@@ -19,5 +19,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/iv_icon"
         android:layout_centerHorizontal="true"
-        tools:text="alarm alarm" />
+        tools:text="alarm alarm"
+        android:textColor="#ffffff"/>
 </RelativeLayout>

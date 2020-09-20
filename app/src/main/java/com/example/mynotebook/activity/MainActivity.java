@@ -18,7 +18,7 @@ import com.example.mynotebook.widget.BottomNavigateItem;
 
 import java.util.ArrayList;
 
-public class BaseActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
+public class MainActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
 
     private ViewPager vpFragmentContainer;
 

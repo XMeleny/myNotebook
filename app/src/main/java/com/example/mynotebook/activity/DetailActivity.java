@@ -7,8 +7,8 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.mynotebook.database.NotebookDatabaseHelper;
 import com.example.mynotebook.R;
+import com.example.mynotebook.database.NotebookDatabaseHelper;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -23,9 +23,8 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        title = findViewById(R.id.detail_title);
-        content = findViewById(R.id.detail_content);
-
+        title = findViewById(R.id.et_title);
+        content = findViewById(R.id.et_content);
 
         Intent intent = getIntent();
         id = Integer.parseInt(intent.getStringExtra("id"));

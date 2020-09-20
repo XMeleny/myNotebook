@@ -6,8 +6,8 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.mynotebook.database.NotebookDatabaseHelper;
 import com.example.mynotebook.R;
+import com.example.mynotebook.database.NotebookDatabaseHelper;
 import com.example.mynotebook.utility.Utils;
 
 public class AddActivity extends AppCompatActivity {
@@ -18,17 +18,17 @@ public class AddActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add);
+        setContentView(R.layout.activity_detail);
 
-        etTitle = findViewById(R.id.titleEdit);
-        etContent = findViewById(R.id.contentEdit);
+        etTitle = findViewById(R.id.et_title);
+        etContent = findViewById(R.id.et_content);
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        String title = etTitle.getText().toString();
-        String content = etContent.getText().toString();
+        String title = etTitle.getText().toString().trim();
+        String content = etContent.getText().toString().trim();
 
         if (!TextUtils.isEmpty(title) || !TextUtils.isEmpty(content)) {
             long res = NotebookDatabaseHelper.insert(title, content);

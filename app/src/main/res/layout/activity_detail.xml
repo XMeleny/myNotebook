@@ -1,26 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context=".activity.AddActivity">
+
 
     <EditText
-        android:id="@+id/detail_title"
+        android:id="@+id/et_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="请输入标题"
-        android:textColor="#ffffff"
-        android:textColorHint="#979797"
-        android:textSize="20dp" />
+        android:hint="@string/title"
+        android:minLines="1"
+        android:textSize="32dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/gray"
+        tools:text="here is title"
+        tools:ignore="SpUsage" />
 
     <EditText
-        android:id="@+id/detail_content"
+        android:id="@+id/et_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="请输入内容"
-        android:textColor="#ffffff"
-        android:textColorHint="#979797"
-        android:textSize="15dp" />
-
+        android:layout_height="match_parent"
+        android:gravity="top"
+        android:hint="@string/content"
+        android:inputType="textMultiLine"
+        android:minLines="1"
+        android:textColor="@color/white"
+        android:textColorHint="@color/gray"
+        android:textSize="24dp"
+        tools:text="here is content"
+        tools:ignore="SpUsage"/>
 </LinearLayout>
