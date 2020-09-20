@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.database.Cursor;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -91,16 +90,11 @@ public class RecordCursorAdapter extends RecyclerView.Adapter<RecordCursorAdapte
             public void onClick(View view) {
                 int position = holder.getAdapterPosition();
                 if (cursor.moveToPosition(position)) {
-                    Intent intent = new Intent(context, DetailActivity.class);
-
-                    String id = String.valueOf(cursor.getInt(cursor.getColumnIndex("id")));
+                    int id = cursor.getInt(cursor.getColumnIndex("id"));
                     String title = cursor.getString(cursor.getColumnIndex("title"));
                     String content = cursor.getString(cursor.getColumnIndex("content"));
 
-                    intent.putExtra("id", id);
-                    intent.putExtra("title", title);
-                    intent.putExtra("content", content);
-                    context.startActivity(intent);
+                    DetailActivity.updateMemo(context, id, title, content);
                 }
             }
         });

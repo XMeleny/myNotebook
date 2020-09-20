@@ -1,21 +1,18 @@
 package com.example.mynotebook.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageButton;
-
 import com.example.mynotebook.R;
-import com.example.mynotebook.activity.AddActivity;
-import com.example.mynotebook.application.BaseApplication;
+import com.example.mynotebook.activity.DetailActivity;
 import com.example.mynotebook.database.RecordCursorAdapter;
 
 public class AllMemoFragment extends Fragment {
@@ -50,8 +47,7 @@ public class AllMemoFragment extends Fragment {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(BaseApplication.context, AddActivity.class);
-                startActivity(intent);
+                DetailActivity.insertMemo(getActivity());
             }
         });
 
