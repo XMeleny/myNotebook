@@ -1,17 +1,13 @@
 package com.example.mynotebook.database;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
-import android.view.Gravity;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -126,32 +122,23 @@ public class RecordCursorAdapter extends RecyclerView.Adapter<RecordCursorAdapte
         return holder;
     }
 
-    private void showDialog() {
-        Dialog dialog = new Dialog(context, R.style.BottomDialog);
-
-        LinearLayout root = (LinearLayout) LayoutInflater.from(context).inflate(R.layout.bottom_dialog, null);
-        dialog.setContentView(root);
-
-        Window dialogWindow = dialog.getWindow();
-        //工具栏靠下
-        dialogWindow.setGravity(Gravity.BOTTOM);
-
-        WindowManager.LayoutParams lp = dialogWindow.getAttributes();
-        lp.x = 0;
-        lp.y = 0;
-        root.measure(0, 0);//0 unspecified
-        lp.width = context.getResources().getDisplayMetrics().widthPixels;
-        lp.height = root.getMeasuredHeight();
-
-        dialogWindow.setAttributes(lp);
-        dialog.show();
-    }
-
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if (cursor.moveToPosition(position)) {
-            holder.recordTitle.setText(cursor.getString(cursor.getColumnIndex("title")));
-            holder.recordContent.setText(cursor.getString(cursor.getColumnIndex("content")));
+            String title = cursor.getString(cursor.getColumnIndex("title"));
+            String content = cursor.getString(cursor.getColumnIndex("content"));
+            if (TextUtils.isEmpty(title)) {
+                holder.recordTitle.setVisibility(View.GONE);
+            } else {
+                holder.recordTitle.setVisibility(View.VISIBLE);
+                holder.recordTitle.setText(title);
+            }
+            if (TextUtils.isEmpty(content)) {
+                holder.recordContent.setVisibility(View.GONE);
+            } else {
+                holder.recordContent.setVisibility(View.VISIBLE);
+                holder.recordContent.setText(content);
+            }
         }
     }
 
