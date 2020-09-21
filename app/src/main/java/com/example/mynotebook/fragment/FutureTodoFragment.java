@@ -12,8 +12,8 @@ import androidx.fragment.app.Fragment;
 
 import com.example.mynotebook.R;
 
-public class AllReminderFragment extends Fragment {
-    private static final String TAG = "AlarmFragment";
+public class FutureTodoFragment extends Fragment {
+    private static final String TAG = "FutureTodoFragment";
 
     private Button btnOpenBottomDialog;
 
@@ -25,7 +25,8 @@ public class AllReminderFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_alarm, container, false);
+        View view = inflater.inflate(R.layout.fragment_future_todo, container, false);
+
         btnOpenBottomDialog = view.findViewById(R.id.btn_open_bottom_dialog);
         btnOpenBottomDialog.setOnClickListener(new View.OnClickListener() {
             @Override

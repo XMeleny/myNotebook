@@ -13,7 +13,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.mynotebook.R;
 import com.example.mynotebook.fragment.AllMemoFragment;
-import com.example.mynotebook.fragment.AllReminderFragment;
+import com.example.mynotebook.fragment.FutureTodoFragment;
 import com.example.mynotebook.widget.BottomNavigateItem;
 
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
 
     private ArrayList<Fragment> fragments = new ArrayList<Fragment>() {{
         add(new AllMemoFragment());
-        add(new AllReminderFragment());
+        add(new FutureTodoFragment());
     }};
 
     @Override
