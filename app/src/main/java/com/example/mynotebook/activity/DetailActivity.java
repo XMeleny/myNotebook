@@ -41,16 +41,14 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        initView();
-        initData();
+        init();
     }
 
-    private void initView() {
+    private void init() {
         etTitle = findViewById(R.id.et_title);
         etContent = findViewById(R.id.et_content);
-    }
 
-    private void initData() {
+        //handle the mode
         Intent intent = getIntent();
 
         mode = intent.getStringExtra(KEY_MODE);
@@ -121,6 +119,4 @@ public class DetailActivity extends AppCompatActivity {
             }
         }
     }
-
-
 }
